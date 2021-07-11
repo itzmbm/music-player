@@ -45,7 +45,6 @@ function pauseSong() {
   musicContainer.classList.remove("play");
   playBtn.querySelector("i.fas").classList.add("fa-play");
   playBtn.querySelector("i.fas").classList.remove("fa-pause");
-
   audio.pause();
 }
 
@@ -55,7 +54,6 @@ function prevSong() {
     songIndex = songs.length - 1;
   }
   loadSong(songs[songIndex]);
-
   playSong();
 }
 
@@ -65,7 +63,6 @@ function nextSong() {
     songIndex = 0;
   }
   loadSong(songs[songIndex]);
-
   playSong();
 }
 
@@ -79,7 +76,6 @@ function setProgress(e) {
   const width = this.clientWidth;
   const clickX = e.offsetX;
   const duration = audio.duration;
-
   audio.currentTime = (clickX / width) * duration;
 }
 
@@ -88,11 +84,9 @@ function DurTime(e) {
   const { duration, currentTime } = e.srcElement;
   var sec;
   var sec_d;
-
   // define minutes currentTime
   let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
   min = min < 10 ? "0" + min : min;
-
   // define seconds currentTime
   function get_sec(x) {
     if (Math.floor(x) >= 60) {
@@ -155,6 +149,14 @@ nextBtn.addEventListener("click", nextSong);
 
 audio.addEventListener("timeupdate", updateProgress);
 progressContainer.addEventListener("click", setProgress);
+audio.addEventListener("ended", nextSong);
+
+audio.addEventListener("timeupdate", updateProgress);
+
+// Click on progress bar
+progressContainer.addEventListener("click", setProgress);
+
+// Song ends
 audio.addEventListener("ended", nextSong);
 
 // Time of song
